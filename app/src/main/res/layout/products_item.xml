@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:padding="@dimen/spacing_tiny">
+
+    <com.redmart.app.util.SquareLayout
+        android:id="@+id/square_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white">
+
+        <ImageView
+            android:id="@+id/product_img"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/app_name"
+            android:scaleType="fitCenter" />
+
+    </com.redmart.app.util.SquareLayout>
+
+    <TextView
+        android:id="@+id/product_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/square_layout"
+        android:ellipsize="end"
+        android:lineSpacingExtra="2dp"
+        android:minLines="3"
+        android:padding="@dimen/spacing_tiny"
+        android:textColor="@color/default_tv_color"
+        android:textSize="@dimen/text_small" />
+
+    <TextView
+        android:id="@+id/measure"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/product_title"
+        android:padding="@dimen/spacing_tiny"
+        android:textColor="@color/secondaryTextColor"
+        android:textSize="@dimen/text_tiny" />
+
+    <TextView
+        android:id="@+id/price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/measure"
+        android:padding="@dimen/spacing_tiny"
+        android:text="$3.33"
+        android:textColor="@color/primaryTextColor"
+        android:textSize="@dimen/text_tiny"
+        android:textStyle="bold" />
+
+</RelativeLayout>

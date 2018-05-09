@@ -12,12 +12,13 @@ public class ApiClient {
     private static Retrofit retrofit = null;
 
     public static Retrofit getClient() {
-        //HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-        //logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient client = new OkHttpClient.Builder()
                 .connectTimeout(5, TimeUnit.SECONDS)
                 .readTimeout(10, TimeUnit.SECONDS)
                 .writeTimeout(10, TimeUnit.SECONDS)
+                .addInterceptor(logging)
                 .build();
         if (retrofit == null) {
             retrofit = new Retrofit.Builder()

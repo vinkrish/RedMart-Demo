@@ -1,5 +1,7 @@
 package com.redmart.app.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.ArrayList;
 
 public class Product {
@@ -93,6 +95,7 @@ public class Product {
         this.product_life = product_life;
     }
 
+    @SerializedName("img")
     private Image image;
 
     public Image getImage() {

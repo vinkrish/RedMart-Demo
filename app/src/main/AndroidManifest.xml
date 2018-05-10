@@ -14,17 +14,24 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".products.ProductsActivity"
-            android:label="@string/products">
+            android:label="@string/products"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".productdetails.ProductDetailsActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".products.ProductsActivity" />
+        </activity>
+        <activity
+            android:name=".SplashActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity android:name=".productdetails.ProductDetailsActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".products.ProductsActivity" />
         </activity>
     </application>
 

@@ -21,7 +21,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".productdetail.ProductDetailsActivity"></activity>
+        <activity android:name=".productdetails.ProductDetailsActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".products.ProductsActivity" />
+        </activity>
     </application>
 
 </manifest>

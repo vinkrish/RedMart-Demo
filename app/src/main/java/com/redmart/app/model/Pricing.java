@@ -1,6 +1,6 @@
 package com.redmart.app.model;
 
-class Pricing {
+public class Pricing {
     private int on_sale;
 
     public int getOnSale() {

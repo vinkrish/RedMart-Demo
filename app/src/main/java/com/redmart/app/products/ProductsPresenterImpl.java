@@ -1,6 +1,6 @@
 package com.redmart.app.products;
 
-import com.redmart.app.model.ResponseObject;
+import com.redmart.app.model.ProductsObj;
 
 public class ProductsPresenterImpl implements ProductsPresenter, ProductsInteractor.OnFinishedListener {
     private ProductsView mView;
@@ -12,10 +12,10 @@ public class ProductsPresenterImpl implements ProductsPresenter, ProductsInterac
     }
 
     @Override
-    public void onProductsReceived(ResponseObject responseObject) {
+    public void onProductsReceived(ProductsObj productsObj) {
         if(mView != null) {
             mView.hideProgress();
-            mView.setProducts(responseObject.getProducts());
+            mView.setProducts(productsObj.getProducts());
         }
     }
 

@@ -2,4 +2,10 @@
     <string name="app_name">RedMart - Demo</string>
     <string name="products">Products</string>
     <string name="redmart_products">RedMart Products</string>
+
+    <string name="key_info">Key Information</string>
+    <string name="about_product">About the Product</string>
+    <string name="delivery_handling">Delivery &amp; Handling</string>
+    <string name="country_origin">Country of Origin</string>
+
 </resources>

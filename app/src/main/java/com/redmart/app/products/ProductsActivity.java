@@ -1,5 +1,6 @@
 package com.redmart.app.products;
 
+import android.content.Intent;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.widget.ProgressBar;
 
 import com.redmart.app.R;
 import com.redmart.app.model.Product;
+import com.redmart.app.productdetails.ProductDetailsActivity;
 import com.redmart.app.util.GridSpacingItemDecoration;
 import com.redmart.app.util.NetworkUtil;
 
@@ -38,22 +40,30 @@ public class ProductsActivity extends AppCompatActivity implements ProductsView 
 
     private void init() {
         setSupportActionBar(toolbar);
-
         presenter = new ProductsPresenterImpl(this, new ProductsInteractorImpl());
         setupRecyclerView();
     }
 
     private void setupRecyclerView() {
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getApplicationContext(),3);
-        //recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
 
         int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.grid_spacing);
         recyclerView.addItemDecoration(new GridSpacingItemDecoration(3, spacingInPixels, true));
 
-        adapter = new ProductsAdapter(this);
+        adapter = new ProductsAdapter(this, mItemListener);
         recyclerView.setAdapter(adapter);
     }
+
+    ProductsAdapter.OnItemClickListener mItemListener = new ProductsAdapter.OnItemClickListener() {
+        @Override
+        public void onItemClick(Product product) {
+            Intent intent = new Intent(ProductsActivity.this, ProductDetailsActivity.class);
+            intent.putExtra("id", product.getId());
+            intent.putExtra("title", product.getTitle());
+            startActivity(intent);
+        }
+    };
 
     @Override
     public void onResume() {
@@ -61,7 +71,7 @@ public class ProductsActivity extends AppCompatActivity implements ProductsView 
         if (NetworkUtil.isNetworkAvailable(this)) {
             presenter.getProducts(0, 20);
         } else {
-
+            //Network Not Available
         }
     }
 

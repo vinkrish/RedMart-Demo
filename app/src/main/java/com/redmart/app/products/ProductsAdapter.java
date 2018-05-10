@@ -4,7 +4,6 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.UiThread;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +16,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -24,10 +24,16 @@ import butterknife.ButterKnife;
 public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHolder> {
     private Context context;
     private List<Product> productList;
+    private final OnItemClickListener listener;
 
-    ProductsAdapter(Context context) {
+    ProductsAdapter(Context context, OnItemClickListener listener) {
         this.context = context;
         this.productList = new ArrayList<>();
+        this.listener = listener;
+    }
+
+    interface OnItemClickListener {
+        void onItemClick(Product product);
     }
 
     @UiThread
@@ -67,11 +73,18 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
         void bind(final Product product) {
             productTitle.setText(product.getTitle());
             measure.setText(product.getMeasure().getWtOrVol());
-            //price.setText(product.getPricing());
+            price.setText(String.format(Locale.ENGLISH, "$%.2f", product.getPricing().getPrice()));
 
             Picasso.with(context)
                     .load("http://media.redmart.com/newmedia/200p" + product.getImage().getName())
                     .into(productImg);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.onItemClick(product);
+                }
+            });
 
         }
     }

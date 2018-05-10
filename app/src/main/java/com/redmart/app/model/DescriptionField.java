@@ -1,6 +1,14 @@
 package com.redmart.app.model;
 
-class Primary {
+public class DescriptionField {
+
+    public DescriptionField() { }
+
+    public DescriptionField(String name, String content) {
+        this.name = name;
+        this.content = content;
+    }
+
     private String name;
 
     public String getName() {

@@ -50,8 +50,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/measure"
         android:padding="@dimen/spacing_tiny"
-        android:text="$3.33"
-        android:textColor="@color/primaryTextColor"
+        android:textColor="@color/colorPrimary"
         android:textSize="@dimen/text_tiny"
         android:textStyle="bold" />
 

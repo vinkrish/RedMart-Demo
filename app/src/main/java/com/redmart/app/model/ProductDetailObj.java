@@ -1,28 +1,6 @@
 package com.redmart.app.model;
 
-import java.util.ArrayList;
-
-public class ResponseObject {
-    private ArrayList<Product> products;
-
-    public ArrayList<Product> getProducts() {
-        return this.products;
-    }
-
-    public void setProducts(ArrayList<Product> products) {
-        this.products = products;
-    }
-
-    private int on_sale_count;
-
-    public int getOnSaleCount() {
-        return this.on_sale_count;
-    }
-
-    public void setOnSaleCount(int on_sale_count) {
-        this.on_sale_count = on_sale_count;
-    }
-
+public class ProductDetailObj {
     private int total;
 
     public int getTotal() {
@@ -31,6 +9,16 @@ public class ResponseObject {
 
     public void setTotal(int total) {
         this.total = total;
+    }
+
+    private Product product;
+
+    public Product getProduct() {
+        return this.product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
     private int page;

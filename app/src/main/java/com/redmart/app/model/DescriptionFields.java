@@ -2,24 +2,24 @@ package com.redmart.app.model;
 
 import java.util.ArrayList;
 
-class DescriptionFields {
-    private ArrayList<Secondary> secondary;
+public class DescriptionFields {
+    private ArrayList<DescriptionField> secondary;
 
-    public ArrayList<Secondary> getSecondary() {
+    public ArrayList<DescriptionField> getSecondary() {
         return this.secondary;
     }
 
-    public void setSecondary(ArrayList<Secondary> secondary) {
+    public void setSecondary(ArrayList<DescriptionField> secondary) {
         this.secondary = secondary;
     }
 
-    private ArrayList<Primary> primary;
+    private ArrayList<DescriptionField> primary;
 
-    public ArrayList<Primary> getPrimary() {
+    public ArrayList<DescriptionField> getPrimary() {
         return this.primary;
     }
 
-    public void setPrimary(ArrayList<Primary> primary) {
+    public void setPrimary(ArrayList<DescriptionField> primary) {
         this.primary = primary;
     }
 }

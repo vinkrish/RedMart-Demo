@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#E53935</color>
     <color name="colorPrimaryDark">#D32F2F</color>
-    <color name="colorAccent">#212121</color>
+    <color name="colorAccent">#D32F2F</color>
 
     <color name="default_white">#FAFAFA</color>
     <color name="black">#000000</color>
@@ -13,7 +13,7 @@
     <color name="dividerColor">#BDBDBD</color>
     <color name="divider_light">#D2D2D2</color>
     <color name="divider_lightest">#EEEEEE</color>
-    <color name="activity_background">#FCFCFC </color>
+    <color name="product_details_background">#FCFCFC </color>
 
     <color name="recycler_background">#EEEEEE</color>
     <color name="recycler_card_1">#FCFCFC</color>

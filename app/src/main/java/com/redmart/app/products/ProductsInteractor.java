@@ -1,14 +1,12 @@
 package com.redmart.app.products;
 
-import com.redmart.app.model.ResponseObject;
-
-import java.util.List;
+import com.redmart.app.model.ProductsObj;
 
 public interface ProductsInteractor {
 
     interface OnFinishedListener {
 
-        void onProductsReceived(ResponseObject responseObject);
+        void onProductsReceived(ProductsObj productsObj);
 
         void onError(String message);
     }

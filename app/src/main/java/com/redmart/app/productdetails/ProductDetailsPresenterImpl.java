@@ -13,7 +13,6 @@ public class ProductDetailsPresenterImpl implements ProductDetailsPresenter, Pro
 
     @Override
     public void getProduct(int productId) {
-        mView.showProgress();
         mIneractor.getProduct(productId, this);
     }
 
@@ -32,7 +31,7 @@ public class ProductDetailsPresenterImpl implements ProductDetailsPresenter, Pro
     @Override
     public void onError(String message) {
         if(mView != null) {
-            mView.hideProgress();
+            mView.showError(message);
         }
     }
 }

@@ -126,21 +126,11 @@ public class ProductDetailsActivity extends AppCompatActivity implements Product
         // create the animator for this view (the start radius is zero)
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
             Animator circularReveal = ViewAnimationUtils.createCircularReveal(rootLayout, cx, cy, 0, finalRadius);
-            circularReveal.setDuration(300);
+            circularReveal.setDuration(400);
             // make the view visible and start the animation
             rootLayout.setVisibility(View.VISIBLE);
             circularReveal.start();
         }
-    }
-
-    @Override
-    public void showProgress() {
-
-    }
-
-    @Override
-    public void hideProgress() {
-
     }
 
     @Override

@@ -15,9 +15,11 @@
         <activity
             android:name=".products.ProductsActivity"
             android:label="@string/products"
-            android:screenOrientation="portrait"/>
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".productdetails.ProductDetailsActivity"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

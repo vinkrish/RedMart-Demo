@@ -42,6 +42,13 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
         notifyDataSetChanged();
     }
 
+    @UiThread
+    public void updateItems(List<Product> products) {
+        int pos = productList.size();
+        this.productList.addAll(products);
+        notifyItemRangeInserted(pos, productList.size() - 1);
+    }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

@@ -8,4 +8,8 @@
     <string name="delivery_handling">Delivery &amp; Handling</string>
     <string name="country_origin">Country of Origin</string>
 
+    <string name="no_network">Please check your Internet.</string>
+    <string name="network_error">A network error has occurred.</string>
+    <string name="request_error">Connection timed out.</string>
+
 </resources>

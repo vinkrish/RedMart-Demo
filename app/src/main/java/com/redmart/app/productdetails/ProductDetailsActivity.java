@@ -3,6 +3,7 @@ package com.redmart.app.productdetails;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -50,7 +51,6 @@ public class ProductDetailsActivity extends AppCompatActivity implements Product
     private DescriptionFieldsAdapter descriptionAdapter;
     private int id;
     private String title;
-    private TextView[] dots;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +73,12 @@ public class ProductDetailsActivity extends AppCompatActivity implements Product
         presenter = new ProductDetailsPresenterImpl(this, new ProductDetailsInteractorImpl());
 
         setupDescriptionRecyclerView();
+
+        if (NetworkUtil.isNetworkAvailable(this)) {
+            presenter.getProduct(id);
+        } else {
+            showSnackbar(getString(R.string.no_network));
+        }
     }
 
     private void setupDescriptionRecyclerView() {
@@ -97,7 +103,11 @@ public class ProductDetailsActivity extends AppCompatActivity implements Product
 
     @Override
     public void showError(String message) {
+        showSnackbar(getString(R.string.request_error));
+    }
 
+    private void showSnackbar(String message) {
+        Snackbar.make(coordinatorLayout, message, Snackbar.LENGTH_LONG).show();
     }
 
     @Override
@@ -132,16 +142,6 @@ public class ProductDetailsActivity extends AppCompatActivity implements Product
         }
         descriptionAdapter.setItems(descriptionFieldList);
 
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (NetworkUtil.isNetworkAvailable(this)) {
-            presenter.getProduct(id);
-        } else {
-            //Network Not Available
-        }
     }
 
     @Override
@@ -201,17 +201,15 @@ public class ProductDetailsActivity extends AppCompatActivity implements Product
 
         @Override
         public void onPageScrolled(int arg0, float arg1, int arg2) {
-
         }
 
         @Override
         public void onPageScrollStateChanged(int arg0) {
-
         }
     };
 
     private void addBottomDots(int currentPage) {
-        dots = new TextView[imagePagerAdapter.getCount()];
+        TextView[] dots = new TextView[imagePagerAdapter.getCount()];
 
         dotsLayout.removeAllViews();
         for (int i = 0; i < dots.length; i++) {

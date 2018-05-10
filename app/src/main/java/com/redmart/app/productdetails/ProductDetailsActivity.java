@@ -1,6 +1,8 @@
 package com.redmart.app.productdetails;
 
+import android.animation.Animator;
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
@@ -15,7 +17,9 @@ import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -39,6 +43,7 @@ import butterknife.ButterKnife;
 public class ProductDetailsActivity extends AppCompatActivity implements ProductDetailsView{
     @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.coordinatorLayout) CoordinatorLayout coordinatorLayout;
+    @BindView(R.id.root_layout) LinearLayout rootLayout;
     @BindView(R.id.product_title) TextView productTitleTV;
     @BindView(R.id.measure) TextView measureTV;
     @BindView(R.id.price) TextView priceTV;
@@ -57,6 +62,7 @@ public class ProductDetailsActivity extends AppCompatActivity implements Product
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_details);
         ButterKnife.bind(this);
+        transitionAnimation(savedInstanceState);
         init();
     }
 
@@ -81,6 +87,26 @@ public class ProductDetailsActivity extends AppCompatActivity implements Product
         }
     }
 
+    private void transitionAnimation(Bundle savedInstanceState) {
+        if (savedInstanceState == null) {
+            rootLayout.setVisibility(View.INVISIBLE);
+            ViewTreeObserver viewTreeObserver = rootLayout.getViewTreeObserver();
+            if (viewTreeObserver.isAlive()) {
+                viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                    @Override
+                    public void onGlobalLayout() {
+                        circularRevealActivity();
+                        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+                            rootLayout.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                        } else {
+                            rootLayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                        }
+                    }
+                });
+            }
+        }
+    }
+
     private void setupDescriptionRecyclerView() {
         descRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         descRecyclerView.setNestedScrollingEnabled(false);
@@ -89,6 +115,22 @@ public class ProductDetailsActivity extends AppCompatActivity implements Product
 
         descriptionAdapter = new DescriptionFieldsAdapter();
         descRecyclerView.setAdapter(descriptionAdapter);
+    }
+
+    private void circularRevealActivity() {
+        int cx = rootLayout.getWidth() / 2;
+        int cy = rootLayout.getHeight() / 2;
+
+        float finalRadius = Math.max(rootLayout.getWidth(), rootLayout.getHeight());
+
+        // create the animator for this view (the start radius is zero)
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
+            Animator circularReveal = ViewAnimationUtils.createCircularReveal(rootLayout, cx, cy, 0, finalRadius);
+            circularReveal.setDuration(300);
+            // make the view visible and start the animation
+            rootLayout.setVisibility(View.VISIBLE);
+            circularReveal.start();
+        }
     }
 
     @Override
@@ -125,7 +167,7 @@ public class ProductDetailsActivity extends AppCompatActivity implements Product
             imgList.add(img.getName());
             Log.d("ImageName", ": " + img.getName());
         }
-        imagePagerAdapter = new ImagePagerAdapter(imgList);
+        imagePagerAdapter = new ImagePagerAdapter(this, imgList);
         imageViewPager.setAdapter(imagePagerAdapter);
         imageViewPager.addOnPageChangeListener(viewPagerListener);
         addBottomDots(0);
@@ -148,48 +190,6 @@ public class ProductDetailsActivity extends AppCompatActivity implements Product
     public void onDestroy() {
         super.onDestroy();
         presenter.onDestroy();
-    }
-
-    public class ImagePagerAdapter extends PagerAdapter {
-        private LayoutInflater layoutInflater;
-        private List<String> imgList;
-
-        ImagePagerAdapter(List<String> imgList) {
-            this.imgList = imgList;
-        }
-
-        @Override
-        public Object instantiateItem(ViewGroup container, int position) {
-            layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-            View view = layoutInflater.inflate(R.layout.image_pager_item, container, false);
-
-            ImageView img = view.findViewById(R.id.img);
-            Picasso.with(ProductDetailsActivity.this)
-                    .load("http://media.redmart.com/newmedia/200p" + imgList.get(position))
-                    .into(img);
-
-            container.addView(view);
-
-            return view;
-        }
-
-        @Override
-        public int getCount() {
-            return imgList.size();
-        }
-
-        @Override
-        public boolean isViewFromObject(View view, Object obj) {
-            return view == obj;
-        }
-
-
-        @Override
-        public void destroyItem(ViewGroup container, int position, Object object) {
-            View view = (View) object;
-            container.removeView(view);
-        }
     }
 
     ViewPager.OnPageChangeListener viewPagerListener = new ViewPager.OnPageChangeListener() {
